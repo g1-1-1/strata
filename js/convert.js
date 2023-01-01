@@ -1,9 +1,9 @@
-var f;
-var textarea = document.getElementById("t");
-var urlInput = document.getElementById("urlInput");
-var download = document.getElementById('download');
+let f;
+const textarea = document.getElementById("t");
+const urlInput = document.getElementById("urlInput");
+const download = document.getElementById("download");
 
-var content = LZString.decompressFromBase64(window.location.hash.slice(1));
+const content = LZString.decompressFromBase64(window.location.hash.slice(1));
 if (content) {
   textarea.value = content;
 }
@@ -13,31 +13,31 @@ processContent(); // update urlInput and download link
 function processContent() {
   window.location.hash = hash();
   urlInput.value = window.location;
-  document.title = title();
-  download.setAttribute("download", filename());
-  download.href = downloadUri();
+  document.title = getTitle();
+  download.setAttribute("download", getFilename());
+  download.href = getDownloadUri();
 }
 
 function hash() {
   return LZString.compressToBase64(textarea.value);
 }
 
-function title() {
+function getTitle() {
   return textarea.value ? textarea.value.slice(0, 30) : "strata";
 }
 
-function filename() {
-  return title().replace(/[^a-z0-9]/gi, "_").toLowerCase() + "_strata.txt";
+function getFilename() {
+  return getTitle().replace(/[^a-z0-9]/gi, "_").toLowerCase() + "_strata.txt";
 }
 
-function downloadUri() {
-  return "data:text/plain," + encodeURIComponent(textarea.value);
+function getDownloadUri() {
+  return `data:text/plain,${encodeURIComponent(textarea.value)}`;
 }
 
 function contentChanged() {
   clearInterval(f);
-  f = setTimeout(function () {
-      processContent();
+  f = setTimeout(() => {
+    processContent();
   }, 500);
 }
 
