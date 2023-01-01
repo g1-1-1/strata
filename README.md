@@ -32,7 +32,7 @@ information:
 2. a piece of data which you want that app to interpret
 
 this is exactly what i have built. when your browser requests, for example
-`http://strata.halcyon.moe`, it retrieves a simple JavaScript web app that immediately 
+`http://strata.halcyon.moe`, it retrieves a simple javascript web app that immediately 
 takes the content of the hash, uncompresses it, and displays it as text on the page.
 
 since my server never sees, much less *provides*, the content being displayed
