@@ -80,9 +80,8 @@
 </head>
 <body>
     <div id='tools'>
-        <a href='/light/'>light</a> |
-        <a href='#' id='share'>share</a> |
         <a href='#' id='new'>new</a> |
+        <a href='#' id='share'>share</a> |
         <a href='#' id='download' download='strata-download.txt'>download text</a> |
         <a href='https://github.com/0i8/strata' target='_blank'>source</a>
 
@@ -91,7 +90,7 @@
     <textarea spellcheck="false" id="t">strata is a pastebin that never sees the contents of its pastes!
 
 - click "new" to create your own paste
-- click "?" to learn more
+- click "source" to find out more about this
 
 --
 
@@ -104,66 +103,66 @@ jupiter (s@turn.moe)</textarea>
         var download = document.getElementById('download');
 
         var content = LZString.decompressFromBase64(window.location.hash.slice(1));
-        if(content) {
-            textarea.value = content;
+        if (content) {
+        textarea.value = content;
         }
 
         processContent(); // update urlInput and download link
 
         function processContent() {
-            window.location.hash = hash();
-            urlInput.value = window.location;
-            document.title = title();
-            download.setAttribute('download', filename());
-            download.href = downloadUri();
+        window.location.hash = hash();
+        urlInput.value = window.location;
+        document.title = title();
+        download.setAttribute("download", filename());
+        download.href = downloadUri();
         }
 
         function hash() {
-            return LZString.compressToBase64(textarea.value);
+        return LZString.compressToBase64(textarea.value);
         }
 
         function title() {
-            return textarea.value ? textarea.value.slice(0,30) : 'strata';
+        return textarea.value ? textarea.value.slice(0, 30) : "strata";
         }
 
         function filename() {
-            return title().replace(/[^a-z0-9]/gi, '_').toLowerCase() + '_strata.txt';
+        return title().replace(/[^a-z0-9]/gi, "_").toLowerCase() + "_strata.txt";
         }
 
         function downloadUri() {
-            return "data:text/plain," + encodeURIComponent(textarea.value);
+        return "data:text/plain," + encodeURIComponent(textarea.value);
         }
 
         function contentChanged() {
-            clearInterval(f);
-            f = setTimeout(function() {
-                processContent();
-            }, 500);
+        clearInterval(f);
+        f = setTimeout(function () {
+            processContent();
+        }, 500);
         }
 
         function share() {
-            urlInput.style.display = "block";
-            urlInput.select();
-            return false;
+        urlInput.style.display = "block";
+        urlInput.select();
+        return false;
         }
 
         function unshare() {
-            urlInput.style.display = "none";
+        urlInput.style.display = "none";
         }
 
         function clear() {
-            textarea.value = '';
-            unshare();
-            textarea.focus();
-            processContent();
-            return false;
+        textarea.value = "";
+        unshare();
+        textarea.focus();
+        processContent();
+        return false;
         }
 
         textarea.onkeyup = contentChanged;
         textarea.onpaste = contentChanged;
         textarea.onfocus = unshare;
-        document.getElementById('share').onclick = share;
-        document.getElementById('new').onclick = clear;
+        document.getElementById("share").onclick = share;
+        document.getElementById("new").onclick = clear;
     </script>
 </body>
 </html>
